@@ -32,6 +32,10 @@ class window.Hand extends Backbone.Collection
 
   dealerTurn: -> 
     @at(0).flip();
-    @add(@deck.pop()).last() until @scores() > 17
+    @add(@deck.pop()).last() until @scores()[0] >= 17
+    console.log('repeat')
     @trigger 'endBoth'
     
+
+  discard:->
+    @model.pop() if @model.length
