@@ -8,7 +8,9 @@ class window.Hand extends Backbone.Collection
     @add(@deck.pop()).last()
     @trigger 'end' if (@scores()> 21)
 
-  stand: -> @trigger 'end'
+  stand: -> 
+    console.log('stand')
+    @trigger 'end'
 
   scores: ->
     # The scores are an array of potential scores.
@@ -38,4 +40,6 @@ class window.Hand extends Backbone.Collection
     
 
   discard:->
-    @model.pop() if @model.length
+    # debugger
+    @remove(@models)
+    console.log('dis', @)

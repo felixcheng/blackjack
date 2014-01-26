@@ -11,22 +11,23 @@
   events:
     "click .hit-button": -> @model.get('playerHand').hit()
     "click .stand-button": -> @model.get('playerHand').stand()
-    "click .reset-button": -> 
-      @model.estart()
+    "click .reset-button": -> @model.restart()
 
   initialize: -> 
     @render()
-    @listenTo(@model.get('dealerHand'), 'endBoth', @calculate, @)
-    #@model.get('dealerHand').on('endBoth', @calculate, @) 
-      #@)
-      
-    @model.get('playerHand').on('end', (-> 
-      @model.get('dealerHand').dealerTurn()), @)
+    @model.on 'reset', @render, @
+    # @listenTo(@model.get('dealerHand'), 'endBoth', @calculate, @)
+    # @model.get('playerHand').on('end', (-> 
+    #   @model.get('dealerHand').dealerTurn()), @) 
 
   render: ->
     console.log('render')
     @$el.children().detach()
     @$el.html @template()
+    @listenTo(@model.get('dealerHand'), 'endBoth', @calculate, @)
+    @model.get('playerHand').on('end', (-> 
+      @model.get('dealerHand').dealerTurn()), @) 
+
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 

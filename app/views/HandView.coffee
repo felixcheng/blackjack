@@ -8,6 +8,8 @@ class window.HandView extends Backbone.View
   initialize: ->
     @collection.on 'add remove change', => @render()
     @render()
+    # debugger
+    # @listenTo(@model.get('playerHand'), 'all', console.log('hv'))
 
   render: ->
     @$el.children().detach()
